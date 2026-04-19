@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:padding="20dp"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:text="Payment"
+        android:textSize="22sp"
+        android:textStyle="bold"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"/>
+
+    <TextView
+        android:id="@+id/amountText"
+        android:text="Amount: ₹0"
+        android:textSize="18sp"
+        android:layout_marginTop="16dp"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        />
+
+    <RadioGroup
+        android:id="@+id/paymentGroup"
+        android:layout_marginTop="20dp"
+        android:layout_height="wrap_content" 
+        android:layout_width="wrap_content">
+
+        <RadioButton android:text="UPI" 
+            android:layout_height="wrap_content"
+             android:layout_width="wrap_content"/>
+        <RadioButton android:text="Card"
+             android:layout_height="wrap_content"
+             android:layout_width="wrap_content"/>
+        <RadioButton android:text="Cash on Delivery" 
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"/>
+
+    </RadioGroup>
+
+    <Button
+        android:id="@+id/payBtn"
+        android:text="Pay Now"
+        android:layout_marginTop="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+</LinearLayout>
