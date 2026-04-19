@@ -2,9 +2,13 @@ package com.example.madecie3
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Patterns
+import android.view.View
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.lifecycleScope
+import com.example.madecie3.api.LoginRequest
+import com.example.madecie3.api.RetrofitClient
+import kotlinx.coroutines.launch
 
 class LoginActivity : AppCompatActivity() {
 
@@ -12,55 +16,47 @@ class LoginActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
 
-        val email = findViewById<EditText>(R.id.email)
-        val password = findViewById<EditText>(R.id.password)
-        val loginBtn = findViewById<Button>(R.id.loginBtn)
-        val signupText = findViewById<TextView>(R.id.signupText)
+        val email       = findViewById<EditText>(R.id.email)
+        val password    = findViewById<EditText>(R.id.password)
+        val loginBtn    = findViewById<Button>(R.id.loginBtn)
+        val signupText  = findViewById<TextView>(R.id.signupText)
+        val progressBar = findViewById<ProgressBar>(R.id.loginProgress)
 
-        // LOGIN BUTTON CLICK
         loginBtn.setOnClickListener {
+            val username = email.text.toString().trim()
+            val pass     = password.text.toString().trim()
 
-            val emailText = email.text.toString().trim()
-            val passText = password.text.toString().trim()
+            if (username.isEmpty()) { email.error = "Enter username or email"; return@setOnClickListener }
+            if (pass.isEmpty())     { password.error = "Enter password"; return@setOnClickListener }
 
-            // 1. Empty check
-            if (emailText.isEmpty()) {
-                email.error = "Enter email or phone"
-                email.requestFocus()
-                return@setOnClickListener
+            progressBar.visibility = View.VISIBLE
+            loginBtn.isEnabled = false
+
+            lifecycleScope.launch {
+                try {
+                    val response = RetrofitClient.api.login(LoginRequest(username, pass))
+                    if (response.isSuccessful && response.body() != null) {
+                        val token = response.body()!!.token
+                        // Save token in SharedPreferences
+                        getSharedPreferences("prefs", MODE_PRIVATE).edit()
+                            .putString("token", token)
+                            .putString("username", username)
+                            .apply()
+                        Toast.makeText(this@LoginActivity, "Login Successful!", Toast.LENGTH_SHORT).show()
+                        startActivity(Intent(this@LoginActivity, DashboardActivity::class.java))
+                        finish()
+                    } else {
+                        Toast.makeText(this@LoginActivity, "Invalid credentials", Toast.LENGTH_SHORT).show()
+                    }
+                } catch (e: Exception) {
+                    Toast.makeText(this@LoginActivity, "Network error: ${e.message}", Toast.LENGTH_SHORT).show()
+                } finally {
+                    progressBar.visibility = View.GONE
+                    loginBtn.isEnabled = true
+                }
             }
-
-            if (passText.isEmpty()) {
-                password.error = "Enter password"
-                password.requestFocus()
-                return@setOnClickListener
-            }
-
-            // 2. Email or Phone validation
-            val isValidEmail = Patterns.EMAIL_ADDRESS.matcher(emailText).matches()
-            val isValidPhone = Patterns.PHONE.matcher(emailText).matches()
-
-            if (!isValidEmail && !isValidPhone) {
-                email.error = "Enter valid email or phone"
-                email.requestFocus()
-                return@setOnClickListener
-            }
-
-            // 3. Password length (basic rule)
-            if (passText.length < 4) {
-                password.error = "Password must be at least 4 characters"
-                password.requestFocus()
-                return@setOnClickListener
-            }
-
-            // ✅ SUCCESS (for now no backend)
-            Toast.makeText(this, "Login Successful", Toast.LENGTH_SHORT).show()
-
-            startActivity(Intent(this, DashboardActivity::class.java))
-            finish()
         }
 
-        // SIGNUP CLICK
         signupText.setOnClickListener {
             startActivity(Intent(this, SignupActivity::class.java))
         }

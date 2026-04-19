@@ -6,12 +6,27 @@
     android:layout_height="match_parent">
 
     <TextView
-        android:text="Orders"
+        android:text="Orders (Carts)"
         android:textSize="22sp"
         android:textStyle="bold"
         android:layout_marginBottom="10dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>
+
+    <ProgressBar
+        android:id="@+id/ordersProgress"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:visibility="gone"/>
+
+    <TextView
+        android:id="@+id/ordersError"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="#CC0000"
+        android:gravity="center"
+        android:visibility="gone"/>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView"
