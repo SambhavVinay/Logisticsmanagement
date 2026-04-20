@@ -14,6 +14,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "275779513570-c9508n6b9icgojiqdavgkcpam0jkohbq.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.madecie3",
+            "certificate_hash": "7a3e06feb8b46630fc275edaa47b1a1553adad8a"
+          }
+        },
+        {
           "client_id": "275779513570-8fj9n50diqcpdbnvoarvt40ihmqi8jb0.apps.googleusercontent.com",
           "client_type": 3
         }

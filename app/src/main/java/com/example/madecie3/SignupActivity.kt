@@ -41,15 +41,33 @@ class SignupActivity : AppCompatActivity() {
                     registerBtn.isEnabled = true
 
                     if (task.isSuccessful) {
-                        auth.currentUser?.updateProfile(
-                            com.google.firebase.auth.UserProfileChangeRequest.Builder()
-                                .setDisplayName(nameText)
-                                .build()
-                        )
-                        Toast.makeText(this@SignupActivity, "Account created!", Toast.LENGTH_SHORT).show()
-                        startActivity(Intent(this@SignupActivity, DashboardActivity::class.java))
-                        finish()
+                        val user = auth.currentUser
+                        val profileUpdates = com.google.firebase.auth.UserProfileChangeRequest.Builder()
+                            .setDisplayName(nameText)
+                            .build()
+
+                        user?.updateProfile(profileUpdates)
+                            ?.addOnCompleteListener { profileTask ->
+                                progressBar.visibility = View.GONE
+                                registerBtn.isEnabled = true
+                                
+                                if (profileTask.isSuccessful) {
+                                    Toast.makeText(this@SignupActivity, "Account created!", Toast.LENGTH_SHORT).show()
+                                    val intent = Intent(this@SignupActivity, DashboardActivity::class.java)
+                                    intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                                    startActivity(intent)
+                                    finish()
+                                } else {
+                                    val error = profileTask.exception?.localizedMessage ?: "Failed to set display name"
+                                    Toast.makeText(this@SignupActivity, "Account created, but profile update failed: $error", Toast.LENGTH_LONG).show()
+                                    // Still navigate since account IS created
+                                    startActivity(Intent(this@SignupActivity, DashboardActivity::class.java))
+                                    finish()
+                                }
+                            }
                     } else {
+                        progressBar.visibility = View.GONE
+                        registerBtn.isEnabled = true
                         val errorMessage = task.exception?.localizedMessage ?: "Signup failed. Try again."
                         Toast.makeText(this@SignupActivity, errorMessage, Toast.LENGTH_LONG).show()
                     }

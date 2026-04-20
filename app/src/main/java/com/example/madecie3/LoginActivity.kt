@@ -1,7 +1,11 @@
 package com.example.madecie3
 
+import android.content.Context
 import android.content.Intent
+import android.net.ConnectivityManager
+import android.net.NetworkCapabilities
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.*
 import androidx.activity.result.contract.ActivityResultContracts
@@ -12,6 +16,9 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.api.ApiException
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.GoogleAuthProvider
+import java.security.MessageDigest
+import android.content.pm.PackageManager
+import android.os.Build
 
 class LoginActivity : AppCompatActivity() {
     private lateinit var auth: FirebaseAuth
@@ -36,19 +43,29 @@ class LoginActivity : AppCompatActivity() {
                 val idToken = account.idToken
                 if (idToken.isNullOrEmpty()) {
                     setLoading(false)
-                    Toast.makeText(this, "Google sign-in token missing", Toast.LENGTH_LONG).show()
+                    Toast.makeText(this, "Google sign-in token missing. Ensure correct SHA-1 in Firebase.", Toast.LENGTH_LONG).show()
                     return@registerForActivityResult
                 }
                 firebaseAuthWithGoogle(idToken)
             } catch (e: ApiException) {
                 setLoading(false)
-                Toast.makeText(this, "Google sign-in failed: ${e.localizedMessage}", Toast.LENGTH_LONG).show()
+                val message = when (e.statusCode) {
+                    7 -> "Network error. Please check your internet connection."
+                    10 -> "Developer error (10). Check SHA-1 and package name in Firebase."
+                    12500 -> "Sign-in failed (12500). Ensure Google Play Services are up to date."
+                    12501 -> "Sign-in cancelled by user."
+                    else -> "Google sign-in failed (${e.statusCode}): ${e.localizedMessage}"
+                }
+                Toast.makeText(this, message, Toast.LENGTH_LONG).show()
+                android.util.Log.e("LoginActivity", "Google Sign-In failed", e)
             }
         }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
+
+        logAppSignature() // Diagnostic task: check SHA-1 in Logcat
 
         auth = FirebaseAuth.getInstance()
         email = findViewById(R.id.email)
@@ -67,8 +84,11 @@ class LoginActivity : AppCompatActivity() {
                 Toast.LENGTH_LONG
             ).show()
         } else {
+            val webClientId = getString(webClientIdResId)
+            android.util.Log.d("LoginActivity", "Using Web Client ID: $webClientId")
+            
             val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-                .requestIdToken(getString(webClientIdResId))
+                .requestIdToken(webClientId)
                 .requestEmail()
                 .build()
             googleSignInClient = GoogleSignIn.getClient(this, gso)
@@ -99,6 +119,10 @@ class LoginActivity : AppCompatActivity() {
         }
 
         googleLoginBtn.setOnClickListener {
+            if (!isNetworkAvailable()) {
+                Toast.makeText(this, "No internet connection detected", Toast.LENGTH_LONG).show()
+                return@setOnClickListener
+            }
             if (!::googleSignInClient.isInitialized) {
                 Toast.makeText(this, "Google Sign-In not configured", Toast.LENGTH_LONG).show()
                 return@setOnClickListener
@@ -133,5 +157,41 @@ class LoginActivity : AppCompatActivity() {
         loginBtn.isEnabled = !isLoading
         googleLoginBtn.isEnabled = !isLoading
         signupText.isEnabled = !isLoading
+    }
+
+    private fun isNetworkAvailable(): Boolean {
+        val connectivityManager = getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+        val network = connectivityManager.activeNetwork ?: return false
+        val capabilities = connectivityManager.getNetworkCapabilities(network) ?: return false
+        return capabilities.hasCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET)
+    }
+
+    private fun logAppSignature() {
+        try {
+            val packageInfo = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
+                packageManager.getPackageInfo(packageName, PackageManager.GET_SIGNING_CERTIFICATES)
+            } else {
+                @Suppress("DEPRECATION")
+                packageManager.getPackageInfo(packageName, PackageManager.GET_SIGNATURES)
+            }
+
+            val signatures = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
+                packageInfo.signingInfo?.signingCertificateHistory
+            } else {
+                @Suppress("DEPRECATION")
+                packageInfo.signatures
+            }
+
+            signatures?.forEach { signature ->
+                val md = MessageDigest.getInstance("SHA-1")
+                md.update(signature.toByteArray())
+                val sha1 = md.digest().joinToString(":") { String.format("%02X", it) }
+                Log.d("AppSignature", "---- COPY THIS SHA-1 TO FIREBASE CONSOLE ----")
+                Log.d("AppSignature", sha1)
+                Log.d("AppSignature", "---------------------------------------------")
+            }
+        } catch (e: Exception) {
+            Log.e("AppSignature", "Error getting signature", e)
+        }
     }
 }
