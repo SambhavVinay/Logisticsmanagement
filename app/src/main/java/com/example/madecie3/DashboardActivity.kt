@@ -19,11 +19,11 @@ class DashboardActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_dashboard)
 
-        val createBtn   = findViewById<LinearLayout>(R.id.createShipmentBtn)
-        val shipmentsBtn = findViewById<LinearLayout>(R.id.shipmentsBtn)
-        val trackBtn    = findViewById<LinearLayout>(R.id.trackBtn)
-        val ordersBtn   = findViewById<LinearLayout>(R.id.ordersBtn)
-        val profileBtn  = findViewById<LinearLayout>(R.id.profileBtn)
+        val createBtn    = findViewById<TextView>(R.id.createShipmentBtn)
+        val shipmentsBtn = findViewById<TextView>(R.id.shipmentsBtn)
+        val trackBtn     = findViewById<TextView>(R.id.trackBtn)
+        val ordersBtn    = findViewById<TextView>(R.id.ordersBtn)
+        val profileBtn   = findViewById<LinearLayout>(R.id.profileBtn)
         val recycler    = findViewById<RecyclerView>(R.id.productsRecycler)
         val progressBar = findViewById<ProgressBar>(R.id.dashboardProgress)
         val errorText   = findViewById<TextView>(R.id.dashboardError)
@@ -32,11 +32,12 @@ class DashboardActivity : AppCompatActivity() {
 
         // Greeting based on time of day
         val hour = Calendar.getInstance().get(Calendar.HOUR_OF_DAY)
-        greeting.text = when {
-            hour < 12 -> "Good morning"
-            hour < 17 -> "Good afternoon"
-            else -> "Good evening"
+        val timeLabel = when {
+            hour < 12 -> "GOOD MORNING"
+            hour < 17 -> "GOOD AFTERNOON"
+            else -> "GOOD EVENING"
         }
+        greeting.text = timeLabel
 
         // Theme toggle
         themeToggleBtn.setOnClickListener {
@@ -49,15 +50,32 @@ class DashboardActivity : AppCompatActivity() {
         trackBtn.setOnClickListener     { startActivity(Intent(this, TrackShipmentActivity::class.java)) }
         ordersBtn.setOnClickListener    { startActivity(Intent(this, OrdersActivity::class.java)) }
         profileBtn.setOnClickListener   { startActivity(Intent(this, ProfileActivity::class.java)) }
+        findViewById<LinearLayout>(R.id.analyticsBtn).setOnClickListener {
+            startActivity(Intent(this, AnalyticsActivity::class.java))
+        }
         
         findViewById<com.google.android.material.floatingactionbutton.FloatingActionButton>(R.id.aiAssistantFab).setOnClickListener {
             startActivity(Intent(this, AiAssistantActivity::class.java))
         }
 
-        recycler.layoutManager = LinearLayoutManager(this)
+        // Setup Hero Card & Products Recycler
+        recycler.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
         progressBar.visibility = View.VISIBLE
 
         lifecycleScope.launch {
+            val db = com.example.madecie3.data.AppDatabase.getDatabase(this@DashboardActivity)
+            val latest = db.shipmentDao().getLatestShipment()
+            
+            if (latest != null) {
+                val heroCard = findViewById<LinearLayout>(R.id.heroShipmentCard)
+                val heroId = findViewById<TextView>(R.id.heroTrackingId)
+                val heroRoute = findViewById<TextView>(R.id.heroRoute)
+                
+                heroCard.visibility = View.VISIBLE
+                heroId.text = latest.trackingId
+                heroRoute.text = "${latest.sender.take(3)} -> ${latest.receiver.take(3)}".uppercase()
+            }
+
             try {
                 val response = RetrofitClient.api.getProducts()
                 if (response.isSuccessful && response.body() != null) {

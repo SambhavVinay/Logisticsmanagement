@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/dark_bg">
+    android:background="@color/zinc_950">
 
-    <LinearLayout
+    <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:layout_height="wrap_content"
+        android:background="@color/zinc_950"
+        app:elevation="0dp">
 
-        <!-- Header -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -27,165 +27,266 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="SHIPWISE"
-                    android:textSize="22sp"
+                    android:text="HOME / NEW DELHI"
+                    android:textSize="11sp"
                     android:textStyle="bold"
-                    android:textColor="@color/accent_red"
+                    android:fontFamily="monospace"
+                    android:textColor="@color/white"
                     android:letterSpacing="0.1" />
 
                 <TextView
                     android:id="@+id/dashGreeting"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Good morning"
-                    android:textSize="13sp"
-                    android:textColor="@color/dark_text_secondary" />
+                    android:text="GOOD MORNING"
+                    android:textSize="10sp"
+                    android:fontFamily="monospace"
+                    android:textColor="@color/slate_400"
+                    android:layout_marginTop="2dp" />
             </LinearLayout>
 
             <ImageButton
                 android:id="@+id/themeToggleBtn"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:background="@drawable/bg_radio_option"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:background="@null"
                 android:src="@android:drawable/ic_menu_day"
-                android:tint="@color/accent_red"
-                android:contentDescription="Toggle theme"
-                android:padding="8dp" />
+                android:tint="@color/slate_400"
+                app:tint="@color/slate_400" />
         </LinearLayout>
+    </com.google.android.material.appbar.AppBarLayout>
 
-        <!-- Quick Actions -->
-        <GridLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingHorizontal="12dp"
-            android:paddingBottom="8dp"
-            android:columnCount="3"
-            android:rowCount="2">
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-            <!-- Create -->
-            <LinearLayout
-                android:id="@+id/createShipmentBtn"
-                android:layout_width="0dp"
-                android:layout_height="80dp"
-                android:layout_columnWeight="1"
-                android:orientation="vertical"
-                android:gravity="center"
-                android:background="@drawable/bg_card_sleek"
-                android:layout_margin="4dp">
-                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="NEW" android:textSize="12sp" android:textStyle="bold" android:textColor="@color/accent_red" android:letterSpacing="0.1"/>
-                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Shipment" android:textSize="11sp" android:textColor="@color/dark_text_secondary" />
-            </LinearLayout>
-
-            <!-- Shipments (NEW) -->
-            <LinearLayout
-                android:id="@+id/shipmentsBtn"
-                android:layout_width="0dp"
-                android:layout_height="80dp"
-                android:layout_columnWeight="1"
-                android:orientation="vertical"
-                android:gravity="center"
-                android:background="@drawable/bg_card_sleek"
-                android:layout_margin="4dp">
-                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="LIST" android:textSize="12sp" android:textStyle="bold" android:textColor="@color/accent_red" android:letterSpacing="0.1"/>
-                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Manage" android:textSize="11sp" android:textColor="@color/dark_text_secondary" />
-            </LinearLayout>
-
-            <!-- Track -->
-            <LinearLayout
-                android:id="@+id/trackBtn"
-                android:layout_width="0dp"
-                android:layout_height="80dp"
-                android:layout_columnWeight="1"
-                android:orientation="vertical"
-                android:gravity="center"
-                android:background="@drawable/bg_card_sleek"
-                android:layout_margin="4dp">
-                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="FIND" android:textSize="12sp" android:textStyle="bold" android:textColor="@color/accent_red" android:letterSpacing="0.1"/>
-                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Tracking" android:textSize="11sp" android:textColor="@color/dark_text_secondary" />
-            </LinearLayout>
-
-            <!-- Orders -->
-            <LinearLayout
-                android:id="@+id/ordersBtn"
-                android:layout_width="0dp"
-                android:layout_height="80dp"
-                android:layout_columnWeight="1"
-                android:orientation="vertical"
-                android:gravity="center"
-                android:background="@drawable/bg_card_sleek"
-                android:layout_margin="4dp">
-                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="CART" android:textSize="12sp" android:textStyle="bold" android:textColor="@color/accent_red" android:letterSpacing="0.1"/>
-                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Inventory" android:textSize="11sp" android:textColor="@color/dark_text_secondary" />
-            </LinearLayout>
-
-            <!-- Profile -->
-            <LinearLayout
-                android:id="@+id/profileBtn"
-                android:layout_width="0dp"
-                android:layout_height="80dp"
-                android:layout_columnWeight="1"
-                android:orientation="vertical"
-                android:gravity="center"
-                android:background="@drawable/bg_card_sleek"
-                android:layout_margin="4dp">
-                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="USER" android:textSize="12sp" android:textStyle="bold" android:textColor="@color/accent_red" android:letterSpacing="0.1"/>
-                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Profile" android:textSize="11sp" android:textColor="@color/dark_text_secondary" />
-            </LinearLayout>
-        </GridLayout>
-
-        <!-- Catalog label -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:paddingStart="20dp"
-            android:paddingEnd="20dp"
-            android:paddingTop="8dp"
-            android:paddingBottom="8dp"
-            android:gravity="center_vertical">
+            android:orientation="vertical"
+            android:paddingBottom="100dp">
 
-            <View
-                android:layout_width="3dp"
-                android:layout_height="16dp"
-                android:background="@color/accent_red"
-                android:layout_marginEnd="10dp" />
+            <!-- Hero: Latest Shipment -->
+            <LinearLayout
+                android:id="@+id/heroShipmentCard"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="16dp"
+                android:layout_marginBottom="24dp"
+                android:padding="20dp"
+                android:background="@drawable/bg_card_industrial"
+                android:orientation="vertical"
+                android:visibility="gone">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="LIVE STATUS"
+                    android:textSize="10sp"
+                    android:textStyle="bold"
+                    android:fontFamily="monospace"
+                    android:textColor="@color/white"
+                    android:letterSpacing="0.2"
+                    android:background="@color/accent_red"
+                    android:paddingHorizontal="6dp"
+                    android:paddingVertical="2dp" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginTop="16dp"
+                    android:gravity="bottom">
+
+                    <TextView
+                        android:id="@+id/heroTrackingId"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="TRKAI-9923"
+                        android:textColor="@color/white"
+                        android:textSize="18sp"
+                        android:textStyle="bold"
+                        android:fontFamily="monospace" />
+
+                    <TextView
+                        android:id="@+id/heroRoute"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="DEL -> BOM"
+                        android:textColor="@color/slate_400"
+                        android:textSize="11sp"
+                        android:fontFamily="monospace" />
+                </LinearLayout>
+
+                <!-- Thin Fidelity tracking line -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="2dp"
+                    android:layout_marginTop="16dp"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical">
+                    <View android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:background="@color/accent_red" />
+                    <View android:layout_width="4dp" android:layout_height="4dp" android:background="@color/accent_red" />
+                    <View android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="2" android:background="@color/zinc_800" />
+                </LinearLayout>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:text="IN TRANSIT"
+                    android:textColor="@color/accent_red"
+                    android:textSize="10sp"
+                    android:textStyle="bold"
+                    android:fontFamily="monospace" />
+            </LinearLayout>
+
+            <!-- Quick Action Pills (Horizontal) -->
+            <HorizontalScrollView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:scrollbars="none"
+                android:paddingStart="16dp"
+                android:clipToPadding="false"
+                android:layout_marginBottom="24dp">
+                
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/createShipmentBtn"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="[ TRK-NEW ]"
+                        android:textColor="@color/white"
+                        android:textSize="12sp"
+                        android:fontFamily="monospace"
+                        android:padding="12dp"
+                        android:background="@drawable/bg_card_industrial"
+                        android:layout_marginEnd="12dp" />
+
+                    <TextView
+                        android:id="@+id/shipmentsBtn"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="[ VAULT ]"
+                        android:textColor="@color/white"
+                        android:textSize="12sp"
+                        android:fontFamily="monospace"
+                        android:padding="12dp"
+                        android:background="@drawable/bg_card_industrial"
+                        android:layout_marginEnd="12dp" />
+
+                    <TextView
+                        android:id="@+id/trackBtn"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="[ FIND ]"
+                        android:textColor="@color/white"
+                        android:textSize="12sp"
+                        android:fontFamily="monospace"
+                        android:padding="12dp"
+                        android:background="@drawable/bg_card_industrial"
+                        android:layout_marginEnd="12dp" />
+
+                    <TextView
+                        android:id="@+id/ordersBtn"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="[ INVENTORY ]"
+                        android:textColor="@color/white"
+                        android:textSize="12sp"
+                        android:fontFamily="monospace"
+                        android:padding="12dp"
+                        android:background="@drawable/bg_card_industrial"
+                        android:layout_marginEnd="12dp" />
+                </LinearLayout>
+            </HorizontalScrollView>
+
+            <!-- Bento Actions -->
+            <GridLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingHorizontal="12dp"
+                android:columnCount="2"
+                android:rowCount="1"
+                android:layout_marginBottom="24dp">
+
+                <LinearLayout
+                    android:id="@+id/profileBtn"
+                    android:layout_width="0dp"
+                    android:layout_height="100dp"
+                    android:layout_columnWeight="1"
+                    android:layout_margin="4dp"
+                    android:padding="16dp"
+                    android:background="@drawable/bg_card_industrial"
+                    android:orientation="vertical"
+                    android:gravity="bottom">
+                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="ACCOUNT" android:textSize="10sp" android:textColor="@color/slate_400" android:fontFamily="monospace"/>
+                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="PROFILE" android:textSize="12sp" android:textStyle="bold" android:textColor="@color/white" android:fontFamily="monospace"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/analyticsBtn"
+                    android:layout_width="0dp"
+                    android:layout_height="100dp"
+                    android:layout_columnWeight="1"
+                    android:layout_margin="4dp"
+                    android:padding="16dp"
+                    android:background="@drawable/bg_card_industrial"
+                    android:orientation="vertical"
+                    android:gravity="bottom">
+                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="TELEMETRY" android:textSize="10sp" android:textColor="@color/slate_400" android:fontFamily="monospace"/>
+                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="STATISTICS" android:textSize="12sp" android:textStyle="bold" android:textColor="@color/white" android:fontFamily="monospace"/>
+                </LinearLayout>
+            </GridLayout>
+
+            <!-- Horizontal Catalog -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginBottom="12dp"
+                android:text="POPULAR INVENTORY"
+                android:textSize="11sp"
+                android:textStyle="bold"
+                android:fontFamily="monospace"
+                android:textColor="@color/white"
+                android:letterSpacing="0.1" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/productsRecycler"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingStart="12dp"
+                android:clipToPadding="false"
+                android:orientation="horizontal"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+
+            <ProgressBar
+                android:id="@+id/dashboardProgress"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="20dp"
+                android:indeterminateTint="@color/accent_red"
+                android:visibility="gone" />
 
             <TextView
-                android:layout_width="0dp"
+                android:id="@+id/dashboardError"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Catalog"
-                android:textSize="16sp"
-                android:textStyle="bold"
-                android:textColor="@color/dark_text_primary" />
+                android:textColor="@color/accent_red"
+                android:gravity="center"
+                android:padding="12dp"
+                android:visibility="gone" />
+
         </LinearLayout>
-
-        <ProgressBar
-            android:id="@+id/dashboardProgress"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:indeterminateTint="@color/accent_red"
-            android:visibility="gone" />
-
-        <TextView
-            android:id="@+id/dashboardError"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textColor="@color/accent_red"
-            android:gravity="center"
-            android:padding="12dp"
-            android:visibility="gone" />
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/productsRecycler"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            android:paddingStart="12dp"
-            android:paddingEnd="12dp"
-            android:clipToPadding="false" />
-    </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/aiAssistantFab"
@@ -193,8 +294,10 @@
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
         android:layout_margin="24dp"
+        app:fabSize="normal"
         android:src="@android:drawable/ic_menu_help"
         app:backgroundTint="@color/accent_red"
-        app:tint="@color/white" />
+        app:tint="@color/white"
+        app:elevation="4dp" />
 
-</FrameLayout>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

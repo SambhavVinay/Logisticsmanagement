@@ -12,6 +12,9 @@ interface ShipmentDao {
     @Insert
     suspend fun insertShipment(shipment: ShipmentEntity)
 
+    @Query("SELECT * FROM shipments ORDER BY timestamp DESC LIMIT 1")
+    suspend fun getLatestShipment(): ShipmentEntity?
+
     @Query("SELECT COUNT(*) FROM shipments")
     suspend fun getCount(): Int
 }

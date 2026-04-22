@@ -4,13 +4,21 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
 
-    <!-- Dark Theme Palette -->
-    <color name="dark_bg">#0D0D0D</color>
-    <color name="dark_surface">#1A1A1A</color>
-    <color name="dark_card">#222222</color>
-    <color name="dark_border">#2E2E2E</color>
-    <color name="dark_text_primary">#FFFFFF</color>
-    <color name="dark_text_secondary">#9E9E9E</color>
+    <!-- Dark Theme Palette (Industrial Zinc) -->
+    <color name="dark_bg">#09090b</color>
+    <color name="dark_surface">#121212</color>
+    <color name="dark_card">#121212</color>
+    <color name="dark_border">#27272a</color>
+    <color name="dark_text_primary">#F8FAFC</color>
+    <color name="dark_text_secondary">#94A3B8</color>
+
+    <!-- UI Overhaul Icons / Accents -->
+    <color name="zinc_950">#09090b</color>
+    <color name="zinc_900">#18181b</color>
+    <color name="zinc_800">#27272a</color>
+    <color name="slate_400">#94a3b8</color>
+    <color name="slate_500">#64748b</color>
+    <color name="emerald_500">#10b981</color>
 
     <!-- Light Theme Palette -->
     <color name="light_bg">#F4F4F4</color>

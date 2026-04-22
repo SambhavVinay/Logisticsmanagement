@@ -15,7 +15,7 @@ class ChatAdapter(private val messages: List<AiMessage>) :
     class ChatViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val messageContainer: LinearLayout = view.findViewById(R.id.messageContainer)
         val messageText: TextView = view.findViewById(R.id.messageText)
-        val bubble: LinearLayout = view.findViewById(R.id.bubble)
+        val aiAccent: View = view.findViewById(R.id.aiAccentBorder)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ChatViewHolder {
@@ -29,15 +29,12 @@ class ChatAdapter(private val messages: List<AiMessage>) :
         holder.messageText.text = message.content
 
         if (message.role == "user") {
-            holder.messageContainer.gravity = Gravity.END
-            holder.bubble.setPadding(0, 0, 0, 0)
+            holder.aiAccent.visibility = View.GONE
             holder.messageText.setTextColor(holder.itemView.context.getColor(R.color.accent_red))
-            holder.messageText.textAlignment = View.TEXT_ALIGNMENT_TEXT_END
+            holder.messageText.text = "> ${message.content}"
         } else {
-            holder.messageContainer.gravity = Gravity.START
-            holder.bubble.setPadding(0, 0, 0, 0)
-            holder.messageText.setTextColor(holder.itemView.context.getColor(R.color.dark_text_primary))
-            holder.messageText.textAlignment = View.TEXT_ALIGNMENT_TEXT_START
+            holder.aiAccent.visibility = View.VISIBLE
+            holder.messageText.setTextColor(holder.itemView.context.getColor(R.color.white))
         }
     }
 

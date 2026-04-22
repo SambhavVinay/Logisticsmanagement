@@ -39,8 +39,8 @@ class AiAssistantActivity : AppCompatActivity() {
         recyclerView.layoutManager = LinearLayoutManager(this)
         recyclerView.adapter = adapter
 
-        // Initial welcome message (Emoji-free)
-        addMessage(AiMessage("assistant", "Hello. I am your Logistics Concierge. How may I assist you today?"))
+        // Initial welcome message (Emoji-free, concise)
+        addMessage(AiMessage("assistant", "Operator online. Systems integrated. How can I assist with your shipments?"))
 
         sendBtn.setOnClickListener {
             val query = input.text.toString().trim()
