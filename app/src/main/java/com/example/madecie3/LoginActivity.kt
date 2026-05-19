@@ -14,7 +14,10 @@ import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.api.ApiException
+import com.google.firebase.FirebaseApp
+import com.google.firebase.FirebaseNetworkException
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException
 import com.google.firebase.auth.GoogleAuthProvider
 import java.security.MessageDigest
 import android.content.pm.PackageManager
@@ -74,6 +77,7 @@ class LoginActivity : AppCompatActivity() {
         logAppSignature()
 
         auth = FirebaseAuth.getInstance()
+        logFirebaseConfig()
         email = findViewById(R.id.email)
         password = findViewById(R.id.password)
         loginBtn = findViewById(R.id.loginBtn)
@@ -133,7 +137,10 @@ class LoginActivity : AppCompatActivity() {
                 return@setOnClickListener
             }
             setLoading(true)
-            googleSignInLauncher.launch(googleSignInClient.signInIntent)
+            // Refresh stale sessions and always request a fresh account token.
+            googleSignInClient.signOut().addOnCompleteListener {
+                googleSignInLauncher.launch(googleSignInClient.signInIntent)
+            }
         }
 
         signupText.setOnClickListener {
@@ -159,8 +166,15 @@ class LoginActivity : AppCompatActivity() {
                     startActivity(Intent(this, DashboardActivity::class.java))
                     finish()
                 } else {
-                    val errorMessage = task.exception?.localizedMessage ?: "Google authentication failed"
+                    val errorMessage = when (val ex = task.exception) {
+                        is FirebaseAuthInvalidCredentialsException -> {
+                            "Google auth failed: invalid token. Check Firebase Google provider, SHA-1, and google-services.json."
+                        }
+                        is FirebaseNetworkException -> "Google auth failed: network issue. Check connectivity and retry."
+                        else -> ex?.localizedMessage ?: "Google authentication failed"
+                    }
                     Toast.makeText(this, errorMessage, Toast.LENGTH_LONG).show()
+                    Log.e("LoginActivity", "Firebase Google auth failed", task.exception)
                 }
             }
     }
@@ -203,6 +217,17 @@ class LoginActivity : AppCompatActivity() {
             }
         } catch (e: Exception) {
             Log.e("AppSignature", "Error getting signature", e)
+        }
+    }
+
+    private fun logFirebaseConfig() {
+        runCatching {
+            val options = FirebaseApp.getInstance().options
+            Log.d("FirebaseConfig", "Project ID: ${options.projectId}")
+            Log.d("FirebaseConfig", "App ID: ${options.applicationId}")
+            Log.d("FirebaseConfig", "Storage Bucket: ${options.storageBucket}")
+        }.onFailure {
+            Log.e("FirebaseConfig", "Unable to read Firebase options", it)
         }
     }
 }

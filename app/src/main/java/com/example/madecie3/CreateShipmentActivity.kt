@@ -27,6 +27,7 @@ class CreateShipmentActivity : AppCompatActivity() {
         ThemeUtils.applyTheme(this)
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_create_shipment)
+        if (AuthGuard.requireAuthenticated(this) == null) return
 
         val sender   = findViewById<EditText>(R.id.sender)
         val receiver = findViewById<EditText>(R.id.receiver)

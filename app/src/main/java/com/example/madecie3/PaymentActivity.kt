@@ -9,8 +9,8 @@ import androidx.lifecycle.lifecycleScope
 import com.example.madecie3.api.CartProduct
 import com.example.madecie3.api.PaymentRequest
 import com.example.madecie3.api.RetrofitClient
-import com.example.madecie3.data.AppDatabase
-import com.example.madecie3.data.ShipmentEntity
+import com.example.madecie3.data.FirestoreShipment
+import com.example.madecie3.data.FirestoreShipmentRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -22,6 +22,7 @@ class PaymentActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_payment)
+        val currentUser = AuthGuard.requireAuthenticated(this) ?: return
 
         val amount          = intent.getIntExtra("amount", 0)
         val amountText      = findViewById<TextView>(R.id.amountText)
@@ -64,9 +65,7 @@ class PaymentActivity : AppCompatActivity() {
                         // Build a unique tracking ID from the API response
                         val transactionId = "TRK${response.body()!!.id}${(1000..9999).random()}"
 
-                        // Save to Local Memory (Room) for AI context
-                        val db = AppDatabase.getDatabase(this@PaymentActivity)
-                        val shipment = ShipmentEntity(
+                        val shipment = FirestoreShipment(
                             sender = intent.getStringExtra("sender") ?: "Unknown",
                             receiver = intent.getStringExtra("receiver") ?: "Unknown",
                             pickupAddress = intent.getStringExtra("pickup") ?: "N/A",
@@ -74,11 +73,24 @@ class PaymentActivity : AppCompatActivity() {
                             weight = intent.getDoubleExtra("weight", 0.0),
                             cost = amount,
                             trackingId = transactionId,
-                            paymentMethod = selectedMethod
+                            paymentMethod = selectedMethod,
+                            status = "Created"
                         )
-                        
-                        withContext(Dispatchers.IO) {
-                            db.shipmentDao().insertShipment(shipment)
+
+                        val saveResult = withContext(Dispatchers.IO) {
+                            FirestoreShipmentRepository().createShipment(
+                                uid = currentUser.uid,
+                                shipment = shipment
+                            )
+                        }
+
+                        if (saveResult.isFailure) {
+                            Toast.makeText(
+                                this@PaymentActivity,
+                                "Payment succeeded but shipment save failed: ${saveResult.exceptionOrNull()?.localizedMessage}",
+                                Toast.LENGTH_LONG
+                            ).show()
+                            return@launch
                         }
 
                         val intent = Intent(this@PaymentActivity, OrderConfirmationActivity::class.java)
@@ -100,4 +112,4 @@ class PaymentActivity : AppCompatActivity() {
             }
         }
     }
-}
+}
