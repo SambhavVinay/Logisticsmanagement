@@ -5,7 +5,8 @@
     android:orientation="vertical"
     android:padding="16dp"
     android:layout_marginBottom="12dp"
-    android:background="@drawable/bg_card_industrial">
+    android:background="@drawable/bg_card_industrial_ripple"
+    android:elevation="2dp">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -20,7 +21,7 @@
             android:layout_weight="1"
             android:text="TRK123456"
             android:textColor="@color/white"
-            android:textSize="14sp"
+            android:textSize="15sp"
             android:textStyle="bold"
             android:fontFamily="monospace"
             android:letterSpacing="0.05" />
@@ -31,7 +32,7 @@
             android:layout_height="wrap_content"
             android:text="₹2500"
             android:textColor="@color/emerald_500"
-            android:textSize="14sp"
+            android:textSize="15sp"
             android:textStyle="bold"
             android:fontFamily="monospace" />
     </LinearLayout>
@@ -40,7 +41,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="10dp"
         android:gravity="center_vertical">
 
         <TextView
@@ -49,7 +50,7 @@
             android:layout_height="wrap_content"
             android:text="BOM"
             android:textColor="@color/slate_400"
-            android:textSize="12sp"
+            android:textSize="11sp"
             android:textAllCaps="true"
             android:fontFamily="monospace" />
 
@@ -66,7 +67,7 @@
             android:layout_height="wrap_content"
             android:text="BLR"
             android:textColor="@color/slate_400"
-            android:textSize="12sp"
+            android:textSize="11sp"
             android:textAllCaps="true"
             android:fontFamily="monospace" />
 
@@ -87,10 +88,10 @@
         android:id="@+id/shipmentDate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="6dp"
+        android:layout_marginTop="8dp"
         android:text="APR 21, 2026"
         android:textColor="@color/slate_500"
-        android:textSize="9sp"
+        android:textSize="10sp"
         android:textAllCaps="true"
         android:fontFamily="monospace" />
 

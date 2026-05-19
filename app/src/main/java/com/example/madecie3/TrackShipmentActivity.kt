@@ -55,14 +55,14 @@ class TrackShipmentActivity : AppCompatActivity() {
                         prefs.edit().putString("last_tracking_id", idText).apply()
 
                         statusText.text = """
-                            📦 Shipment ID: ${p.id}
-                            📌 Product: ${p.title}
-                            💲 Value: $${"%.2f".format(p.price)}
-                            📁 Category: ${p.category}
-                            📍 Status: In Transit
-                            🏙️ Origin: New York
-                            🏙️ Destination: Los Angeles
-                            ⏱️ ETA: 3 business days
+                            Shipment ID: ${p.id}
+                            Product: ${p.title}
+                            Value: $${"%.2f".format(p.price)}
+                            Category: ${p.category}
+                            Status: In Transit
+                            Origin: New York
+                            Destination: Los Angeles
+                            ETA: 3 business days
                         """.trimIndent()
                         resultCard.visibility = View.VISIBLE
                     } else {

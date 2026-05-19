@@ -1,56 +1,60 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="160dp"
+    android:layout_width="168dp"
     android:layout_height="wrap_content"
-    android:orientation="vertical"
-    android:layout_margin="8dp"
-    android:background="@drawable/bg_card_industrial">
+    android:layout_marginStart="4dp"
+    android:layout_marginEnd="12dp"
+    android:layout_marginBottom="4dp"
+    android:background="@drawable/bg_product_card_elevated"
+    android:elevation="4dp"
+    android:orientation="vertical">
 
-    <!-- Product Image -->
     <ImageView
         android:id="@+id/productImage"
         android:layout_width="match_parent"
-        android:layout_height="120dp"
-        android:scaleType="centerInside"
-        android:padding="16dp" />
+        android:layout_height="124dp"
+        android:padding="16dp"
+        android:scaleType="centerInside" />
 
-    <!-- Info block -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:padding="12dp">
+        android:paddingHorizontal="14dp"
+        android:paddingTop="4dp"
+        android:paddingBottom="14dp">
 
         <TextView
             android:id="@+id/productCategory"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="9sp"
-            android:letterSpacing="0.12"
-            android:textColor="@color/accent_red"
-            android:textAllCaps="true"
+            android:layout_marginBottom="6dp"
             android:fontFamily="monospace"
-            android:layout_marginBottom="4dp" />
+            android:letterSpacing="0.1"
+            android:textAllCaps="true"
+            android:textColor="@color/accent_red"
+            android:textSize="9sp" />
 
         <TextView
             android:id="@+id/productTitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="12sp"
-            android:textStyle="bold"
-            android:textColor="@color/white"
-            android:maxLines="1"
+            android:layout_marginBottom="8dp"
             android:ellipsize="end"
             android:fontFamily="monospace"
-            android:layout_marginBottom="8dp" />
+            android:maxLines="2"
+            android:minLines="2"
+            android:textColor="@color/white"
+            android:textSize="12sp"
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/productPrice"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="13sp"
+            android:fontFamily="monospace"
             android:textColor="@color/emerald_500"
-            android:textStyle="bold"
-            android:fontFamily="monospace" />
+            android:textSize="14sp"
+            android:textStyle="bold" />
     </LinearLayout>
 </LinearLayout>

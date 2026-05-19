@@ -2,125 +2,131 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/dark_bg"
+    android:background="#000000"
     android:fillViewport="true">
 
-    <RelativeLayout
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="24dp"
-        android:gravity="center">
+        android:orientation="vertical"
+        android:gravity="center_horizontal"
+        android:padding="16dp">
 
         <!-- Theme Toggle -->
         <ImageButton
             android:id="@+id/themeToggleBtn"
             android:layout_width="40dp"
             android:layout_height="40dp"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentEnd="true"
+            android:layout_gravity="end"
             android:background="@drawable/bg_radio_option"
             android:src="@android:drawable/ic_menu_day"
             android:contentDescription="Toggle theme"
             android:tint="@color/accent_red"
-            android:padding="8dp"/>
+            android:padding="8dp" />
 
-        <!-- Main content centered -->
+        <!-- Main content -->
         <LinearLayout
             android:id="@+id/loginContent"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:layout_below="@id/themeToggleBtn"
-            android:layout_marginTop="24dp"
+            android:layout_marginTop="12dp"
             android:orientation="vertical"
-            android:gravity="center">
+            android:gravity="center_horizontal">
 
-            <!-- Logo -->
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="SHIPWISE"
-                android:textSize="32sp"
+                android:textSize="34sp"
                 android:textStyle="bold"
-                android:textColor="@color/accent_red"
-                android:letterSpacing="0.12"
-                android:layout_marginBottom="8dp" />
+                android:textColor="#E53935"
+                android:letterSpacing="0.16"
+                android:layout_marginBottom="10dp" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Sign in to your account"
                 android:textSize="14sp"
-                android:textColor="@color/dark_text_secondary"
-                android:layout_marginBottom="40dp" />
+                android:textColor="#AAAAAA"
+                android:layout_marginBottom="20dp" />
 
-            <!-- Email -->
-            <TextView
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="EMAIL"
-                android:textSize="11sp"
-                android:letterSpacing="0.1"
-                android:textColor="@color/dark_text_secondary"
-                android:layout_marginBottom="6dp" />
+                android:orientation="vertical"
+                android:background="@drawable/bg_auth_form_card"
+                android:elevation="2dp"
+                android:padding="16dp"
+                android:layout_marginBottom="20dp">
 
-            <EditText
-                android:id="@+id/email"
-                android:layout_width="match_parent"
-                android:layout_height="56dp"
-                android:hint="you@example.com"
-                android:inputType="textEmailAddress"
-                android:background="@drawable/bg_input_field"
-                android:textColor="@color/dark_text_primary"
-                android:textColorHint="@color/dark_text_secondary"
-                android:paddingStart="16dp"
-                android:paddingEnd="16dp"
-                android:layout_marginBottom="16dp" />
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="EMAIL"
+                    android:textSize="11sp"
+                    android:letterSpacing="0.1"
+                    android:textColor="#AAAAAA"
+                    android:layout_marginBottom="6dp" />
 
-            <!-- Password -->
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="PASSWORD"
-                android:textSize="11sp"
-                android:letterSpacing="0.1"
-                android:textColor="@color/dark_text_secondary"
-                android:layout_marginBottom="6dp" />
+                <EditText
+                    android:id="@+id/email"
+                    android:layout_width="match_parent"
+                    android:layout_height="56dp"
+                    android:hint="you@example.com"
+                    android:inputType="textEmailAddress"
+                    android:background="@drawable/bg_auth_input"
+                    android:textColor="@color/white"
+                    android:textColorHint="#888888"
+                    android:paddingHorizontal="16dp"
+                    android:paddingVertical="14dp"
+                    android:layout_marginBottom="12dp" />
 
-            <EditText
-                android:id="@+id/password"
-                android:layout_width="match_parent"
-                android:layout_height="56dp"
-                android:hint="••••••••"
-                android:inputType="textPassword"
-                android:background="@drawable/bg_input_field"
-                android:textColor="@color/dark_text_primary"
-                android:textColorHint="@color/dark_text_secondary"
-                android:paddingStart="16dp"
-                android:paddingEnd="16dp"
-                android:layout_marginBottom="28dp" />
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="PASSWORD"
+                    android:textSize="11sp"
+                    android:letterSpacing="0.1"
+                    android:textColor="#AAAAAA"
+                    android:layout_marginBottom="6dp" />
 
-            <!-- Login Button -->
-            <Button
-                android:id="@+id/loginBtn"
-                android:layout_width="match_parent"
-                android:layout_height="54dp"
-                android:text="SIGN IN"
-                android:textColor="@color/white"
-                android:letterSpacing="0.08"
-                android:textStyle="bold"
-                android:background="@drawable/bg_button_red"
-                android:layout_marginBottom="12dp" />
+                <EditText
+                    android:id="@+id/password"
+                    android:layout_width="match_parent"
+                    android:layout_height="56dp"
+                    android:hint="••••••••"
+                    android:inputType="textPassword"
+                    android:background="@drawable/bg_auth_input"
+                    android:textColor="@color/white"
+                    android:textColorHint="#888888"
+                    android:paddingHorizontal="16dp"
+                    android:paddingVertical="14dp"
+                    android:layout_marginBottom="16dp" />
 
-            <!-- Google Button -->
-            <Button
-                android:id="@+id/googleLoginBtn"
-                android:layout_width="match_parent"
-                android:layout_height="54dp"
-                android:text="Continue with Google"
-                android:textColor="@color/accent_red"
-                android:background="@drawable/bg_button_outline"
-                android:layout_marginBottom="24dp" />
+                <Button
+                    android:id="@+id/loginBtn"
+                    android:layout_width="match_parent"
+                    android:layout_height="56dp"
+                    android:text="SIGN IN"
+                    android:textColor="@color/white"
+                    android:letterSpacing="0.08"
+                    android:textStyle="bold"
+                    android:paddingHorizontal="16dp"
+                    android:paddingVertical="14dp"
+                    android:background="@drawable/bg_auth_btn_primary"
+                    android:layout_marginBottom="12dp" />
+
+                <Button
+                    android:id="@+id/googleLoginBtn"
+                    android:layout_width="match_parent"
+                    android:layout_height="56dp"
+                    android:text="Continue with Google"
+                    android:textColor="#E53935"
+                    android:paddingHorizontal="16dp"
+                    android:paddingVertical="14dp"
+                    android:background="@drawable/bg_auth_btn_outline" />
+            </LinearLayout>
 
             <ProgressBar
                 android:id="@+id/loginProgress"
@@ -128,6 +134,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:indeterminateTint="@color/accent_red"
+                android:layout_marginBottom="16dp"
                 android:visibility="gone" />
 
             <LinearLayout
@@ -135,13 +142,13 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:layout_gravity="center"
-                android:layout_marginTop="8dp">
+                android:layout_marginTop="4dp">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Don't have an account? "
-                    android:textColor="@color/dark_text_secondary"
+                    android:textColor="#AAAAAA"
                     android:textSize="14sp" />
 
                 <TextView
@@ -149,11 +156,11 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Sign up"
-                    android:textColor="@color/accent_red"
+                    android:textColor="#E53935"
                     android:textSize="14sp"
                     android:textStyle="bold" />
             </LinearLayout>
 
         </LinearLayout>
-    </RelativeLayout>
+    </LinearLayout>
 </ScrollView>

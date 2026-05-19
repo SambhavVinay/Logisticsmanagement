@@ -3,16 +3,17 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="horizontal"
-    android:background="@drawable/bg_card"
+    android:background="@drawable/bg_card_industrial_ripple"
     android:padding="16dp"
     android:gravity="center_vertical"
-    android:layout_margin="6dp">
+    android:layout_marginBottom="12dp"
+    android:elevation="2dp">
 
     <!-- Red dot indicator -->
     <View
         android:layout_width="10dp"
         android:layout_height="10dp"
-        android:background="@drawable/bg_button_red"
+        android:background="@drawable/bg_avatar_circle"
         android:layout_marginEnd="14dp" />
 
     <LinearLayout
@@ -28,23 +29,23 @@
             android:text="Order #"
             android:textStyle="bold"
             android:textColor="@color/dark_text_primary"
-            android:textSize="15sp" />
+            android:textSize="16sp" />
 
         <TextView
             android:id="@+id/orderStatus"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Status"
-            android:textColor="@color/dark_text_secondary"
-            android:textSize="13sp"
-            android:layout_marginTop="2dp" />
+            android:textColor="#AAAAAA"
+            android:textSize="12sp"
+            android:layout_marginTop="4dp" />
     </LinearLayout>
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="›"
-        android:textSize="22sp"
+        android:text=">"
+        android:textSize="18sp"
         android:textColor="@color/dark_text_secondary" />
 
 </LinearLayout>

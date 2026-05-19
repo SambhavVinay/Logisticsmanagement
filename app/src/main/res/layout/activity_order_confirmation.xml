@@ -2,28 +2,69 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/dark_bg"
+    android:background="#000000"
     android:orientation="vertical"
-    android:gravity="center"
-    android:padding="32dp">
+    android:gravity="center_horizontal"
+    android:padding="16dp">
+
+    <!-- Header -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:layout_marginBottom="22dp">
+
+        <ImageView
+            android:layout_width="22dp"
+            android:layout_height="22dp"
+            android:src="@android:drawable/ic_media_previous"
+            android:tint="@color/dark_text_primary"
+            android:layout_marginEnd="12dp" />
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Order Confirmed"
+                android:textSize="28sp"
+                android:textStyle="bold"
+                android:textColor="@color/dark_text_primary" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Payment and shipment confirmation"
+                android:textSize="13sp"
+                android:textColor="@color/dark_text_secondary"
+                android:alpha="0.88"
+                android:layout_marginTop="4dp" />
+        </LinearLayout>
+    </LinearLayout>
 
     <!-- Check icon -->
     <TextView
-        android:layout_width="80dp"
-        android:layout_height="80dp"
+        android:layout_width="88dp"
+        android:layout_height="88dp"
         android:text="✓"
-        android:textSize="42sp"
+        android:textSize="44sp"
         android:textStyle="bold"
         android:gravity="center"
         android:textColor="@color/white"
-        android:background="@drawable/bg_button_red"
-        android:layout_marginBottom="24dp" />
+        android:background="@drawable/bg_avatar_circle"
+        android:layout_marginTop="4dp"
+        android:layout_marginBottom="16dp" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Payment Successful!"
-        android:textSize="26sp"
+        android:textSize="28sp"
         android:textStyle="bold"
         android:textColor="@color/dark_text_primary"
         android:layout_marginBottom="8dp" />
@@ -32,50 +73,80 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Your shipment is confirmed"
-        android:textSize="14sp"
+        android:textSize="13sp"
         android:textColor="@color/dark_text_secondary"
-        android:layout_marginBottom="36dp" />
+        android:alpha="0.9"
+        android:layout_marginBottom="20dp" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:background="@drawable/bg_security_note_card"
+        android:paddingHorizontal="10dp"
+        android:paddingVertical="6dp"
+        android:layout_marginBottom="20dp">
+
+        <ImageView
+            android:layout_width="12dp"
+            android:layout_height="12dp"
+            android:src="@android:drawable/ic_lock_lock"
+            android:tint="@color/accent_red"
+            android:layout_marginEnd="6dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Secure Transaction"
+            android:textSize="11sp"
+            android:textColor="@color/dark_text_secondary" />
+    </LinearLayout>
 
     <!-- Info card -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:background="@drawable/bg_card"
-        android:padding="20dp"
-        android:layout_marginBottom="32dp">
+        android:background="@drawable/bg_checkout_total_card"
+        android:elevation="2dp"
+        android:padding="16dp"
+        android:layout_marginBottom="24dp">
 
         <!-- Tracking ID -->
-        <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal" android:layout_marginBottom="16dp" android:gravity="center_vertical">
+        <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal" android:layout_marginBottom="14dp" android:gravity="center_vertical">
             <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:text="Tracking ID" android:textColor="@color/dark_text_secondary" android:textSize="13sp"/>
             <TextView android:id="@+id/trackingText" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="—" android:textColor="@color/accent_red" android:textSize="13sp" android:textStyle="bold"/>
         </LinearLayout>
 
-        <View android:layout_width="match_parent" android:layout_height="1dp" android:background="@color/dark_border" android:layout_marginBottom="16dp"/>
+        <View android:layout_width="match_parent" android:layout_height="1dp" android:background="#38FFFFFF" android:layout_marginBottom="14dp"/>
 
         <!-- Payment method -->
-        <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal" android:layout_marginBottom="16dp" android:gravity="center_vertical">
+        <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal" android:layout_marginBottom="14dp" android:gravity="center_vertical">
             <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:text="Payment Via" android:textColor="@color/dark_text_secondary" android:textSize="13sp"/>
-            <TextView android:id="@+id/paymentMethodText" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="—" android:textColor="@color/dark_text_primary" android:textSize="13sp"/>
+            <TextView android:id="@+id/paymentMethodText" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="—" android:textColor="@color/dark_text_primary" android:textSize="13sp" android:textStyle="bold"/>
         </LinearLayout>
 
-        <View android:layout_width="match_parent" android:layout_height="1dp" android:background="@color/dark_border" android:layout_marginBottom="16dp"/>
+        <View android:layout_width="match_parent" android:layout_height="1dp" android:background="#38FFFFFF" android:layout_marginBottom="14dp"/>
 
         <!-- Amount paid -->
         <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal" android:gravity="center_vertical">
             <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:text="Amount Paid" android:textColor="@color/dark_text_secondary" android:textSize="13sp"/>
-            <TextView android:id="@+id/amountPaidText" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="—" android:textColor="@color/dark_text_primary" android:textSize="13sp" android:textStyle="bold"/>
+            <TextView android:id="@+id/amountPaidText" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="—" android:textColor="@color/accent_red" android:textSize="14sp" android:textStyle="bold"/>
         </LinearLayout>
     </LinearLayout>
 
     <Button
         android:id="@+id/homeBtn"
         android:layout_width="match_parent"
-        android:layout_height="54dp"
+        android:layout_height="58dp"
         android:text="BACK TO DASHBOARD"
         android:textColor="@color/white"
         android:letterSpacing="0.06"
         android:textStyle="bold"
-        android:background="@drawable/bg_button_red" />
+        android:paddingHorizontal="16dp"
+        android:paddingVertical="16dp"
+        android:elevation="3dp"
+        android:background="@drawable/bg_button_red_24" />
 
 </LinearLayout>

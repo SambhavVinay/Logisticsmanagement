@@ -50,10 +50,7 @@ class DashboardActivity : AppCompatActivity() {
         trackBtn.setOnClickListener     { startActivity(Intent(this, TrackShipmentActivity::class.java)) }
         ordersBtn.setOnClickListener    { startActivity(Intent(this, OrdersActivity::class.java)) }
         profileBtn.setOnClickListener   { startActivity(Intent(this, ProfileActivity::class.java)) }
-        findViewById<LinearLayout>(R.id.analyticsBtn).setOnClickListener {
-            startActivity(Intent(this, AnalyticsActivity::class.java))
-        }
-        
+
         findViewById<com.google.android.material.floatingactionbutton.FloatingActionButton>(R.id.aiAssistantFab).setOnClickListener {
             startActivity(Intent(this, AiAssistantActivity::class.java))
         }

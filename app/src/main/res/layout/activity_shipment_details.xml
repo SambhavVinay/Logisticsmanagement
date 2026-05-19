@@ -2,25 +2,68 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/dark_bg">
+    android:background="#000000"
+    android:fillViewport="true">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:padding="16dp">
+
+        <!-- Header -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:layout_marginBottom="16dp">
+
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:src="@android:drawable/ic_menu_info_details"
+                android:tint="@color/accent_red"
+                android:layout_marginEnd="10dp" />
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Shipment Details"
+                    android:textSize="28sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/dark_text_primary" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Review package and shipping information"
+                    android:textSize="12sp"
+                    android:textColor="#AAAAAA"
+                    android:layout_marginTop="4dp" />
+            </LinearLayout>
+        </LinearLayout>
 
         <!-- Hero image -->
         <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="280dp"
-            android:background="@color/dark_card">
+            android:layout_height="220dp"
+            android:background="@drawable/bg_checkout_total_card"
+            android:foreground="?attr/selectableItemBackgroundBorderless"
+            android:elevation="2dp">
 
             <ImageView
                 android:id="@+id/detailImage"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:scaleType="centerInside"
-                android:padding="24dp"
+                android:padding="20dp"
                 android:visibility="gone" />
 
             <!-- placeholder when no image -->
@@ -29,8 +72,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:gravity="center"
-                android:text="📦"
-                android:textSize="72sp"
+                android:text=""
+                android:textSize="60sp"
                 android:visibility="gone" />
         </FrameLayout>
 
@@ -39,7 +82,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:padding="24dp">
+            android:padding="16dp"
+            android:layout_marginTop="16dp"
+            android:background="@drawable/bg_auth_form_card"
+            android:elevation="2dp">
 
             <!-- Category chip -->
             <TextView
@@ -51,7 +97,7 @@
                 android:letterSpacing="0.1"
                 android:textAllCaps="true"
                 android:textColor="@color/accent_red"
-                android:layout_marginBottom="8dp" />
+                android:layout_marginBottom="10dp" />
 
             <!-- Title -->
             <TextView
@@ -59,7 +105,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Product Title"
-                android:textSize="22sp"
+                android:textSize="24sp"
                 android:textStyle="bold"
                 android:textColor="@color/dark_text_primary"
                 android:layout_marginBottom="8dp" />
@@ -70,31 +116,56 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="$0.00"
-                android:textSize="26sp"
+                android:textSize="30sp"
                 android:textStyle="bold"
                 android:textColor="@color/accent_red"
-                android:layout_marginBottom="24dp" />
+                android:layout_marginBottom="16dp" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:background="@drawable/bg_security_note_card"
+                android:paddingHorizontal="10dp"
+                android:paddingVertical="6dp"
+                android:layout_marginBottom="18dp">
+
+                <ImageView
+                    android:layout_width="12dp"
+                    android:layout_height="12dp"
+                    android:src="@android:drawable/ic_lock_lock"
+                    android:tint="@color/accent_red"
+                    android:layout_marginEnd="6dp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Verified Shipment"
+                    android:textSize="11sp"
+                    android:textColor="#AAAAAA" />
+            </LinearLayout>
 
             <!-- Divider -->
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:background="@color/dark_border"
-                android:layout_marginBottom="20dp" />
+                android:background="#38FFFFFF"
+                android:layout_marginBottom="16dp" />
 
             <!-- Info rows -->
-            <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal" android:layout_marginBottom="14dp">
-                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="📍 Status" android:textColor="@color/dark_text_secondary" android:textSize="14sp" android:layout_weight="1"/>
+            <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal" android:layout_marginBottom="12dp">
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text=" Status" android:textColor="#AAAAAA" android:textSize="14sp" android:layout_weight="1"/>
                 <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Ready to Ship" android:textColor="@color/color_success" android:textSize="14sp" android:textStyle="bold"/>
             </LinearLayout>
 
-            <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal" android:layout_marginBottom="14dp">
-                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="🏭 Origin" android:textColor="@color/dark_text_secondary" android:textSize="14sp" android:layout_weight="1"/>
+            <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal" android:layout_marginBottom="12dp">
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text=" Origin" android:textColor="#AAAAAA" android:textSize="14sp" android:layout_weight="1"/>
                 <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Warehouse A" android:textColor="@color/dark_text_primary" android:textSize="14sp"/>
             </LinearLayout>
 
-            <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal" android:layout_marginBottom="14dp">
-                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="📦 Shipment" android:textColor="@color/dark_text_secondary" android:textSize="14sp" android:layout_weight="1"/>
+            <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal" android:layout_marginBottom="12dp">
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text=" Shipment" android:textColor="#AAAAAA" android:textSize="14sp" android:layout_weight="1"/>
                 <TextView android:id="@+id/detailShipmentId" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="#0000" android:textColor="@color/dark_text_primary" android:textSize="14sp"/>
             </LinearLayout>
 
@@ -102,8 +173,8 @@
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:background="@color/dark_border"
-                android:layout_marginBottom="20dp"
+                android:background="#38FFFFFF"
+                android:layout_marginBottom="16dp"
                 android:layout_marginTop="6dp" />
 
             <!-- Description -->
@@ -113,7 +184,7 @@
                 android:text="DESCRIPTION"
                 android:textSize="11sp"
                 android:letterSpacing="0.1"
-                android:textColor="@color/dark_text_secondary"
+                android:textColor="#AAAAAA"
                 android:layout_marginBottom="8dp" />
 
             <TextView
@@ -121,20 +192,23 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textSize="14sp"
-                android:textColor="@color/dark_text_secondary"
+                android:textColor="#AAAAAA"
                 android:lineSpacingExtra="6dp"
-                android:layout_marginBottom="32dp" />
+                android:layout_marginBottom="20dp" />
 
             <!-- CTA Button -->
             <Button
                 android:id="@+id/shipThisBtn"
                 android:layout_width="match_parent"
-                android:layout_height="54dp"
-                android:text="SHIP THIS →"
+                android:layout_height="58dp"
+                android:text="SHIP THIS"
                 android:textColor="@color/white"
                 android:letterSpacing="0.08"
                 android:textStyle="bold"
-                android:background="@drawable/bg_button_red" />
+                android:paddingHorizontal="16dp"
+                android:paddingVertical="16dp"
+                android:elevation="3dp"
+                android:background="@drawable/bg_button_red_24" />
         </LinearLayout>
     </LinearLayout>
 </ScrollView>
