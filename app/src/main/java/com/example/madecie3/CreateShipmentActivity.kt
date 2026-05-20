@@ -36,9 +36,34 @@ class CreateShipmentActivity : AppCompatActivity() {
         val delivery = findViewById<EditText>(R.id.delivery)
         val btn      = findViewById<Button>(R.id.proceedPaymentBtn)
         val imagePick = findViewById<FrameLayout>(R.id.packageImagePick)
+        val senderSection = findViewById<LinearLayout>(R.id.senderSection)
 
-        imagePick.setOnClickListener {
-            imagePickerLauncher.launch("image/*")
+        val productImg = intent.getStringExtra("productImg")
+        val productTitle = intent.getStringExtra("productTitle")
+
+        if (!productImg.isNullOrEmpty()) {
+            senderSection.visibility = android.view.View.GONE
+            // Pre-fill so it doesn't fail validation
+            sender.setText(productTitle ?: "Inventory Item")
+            pickup.setText("Warehouse A")
+
+            // Load image using Coil
+            val preview = findViewById<ImageView>(R.id.packageImagePreview)
+            val placeholder = findViewById<LinearLayout>(R.id.packageImagePlaceholder)
+            preview.visibility = android.view.View.VISIBLE
+            placeholder.visibility = android.view.View.GONE
+            
+            val request = coil.request.ImageRequest.Builder(this)
+                .data(productImg)
+                .target(preview)
+                .build()
+            coil.Coil.imageLoader(this).enqueue(request)
+            // Can't pick new image if it's from inventory
+            imagePick.setOnClickListener(null)
+        } else {
+            imagePick.setOnClickListener {
+                imagePickerLauncher.launch("image/*")
+            }
         }
 
         btn.setOnClickListener {
@@ -54,6 +79,12 @@ class CreateShipmentActivity : AppCompatActivity() {
                 intent.putExtra("pickup", pickup.text.toString())
                 intent.putExtra("delivery", delivery.text.toString())
                 intent.putExtra("weight", w)
+                // pass image url if from inventory
+                if (!productImg.isNullOrEmpty()) {
+                    intent.putExtra("productImg", productImg)
+                } else if (selectedImageUri != null) {
+                    intent.putExtra("productImg", selectedImageUri.toString())
+                }
                 startActivity(intent)
             }
         }

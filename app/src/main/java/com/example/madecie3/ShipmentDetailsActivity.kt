@@ -20,7 +20,9 @@ class ShipmentDetailsActivity : AppCompatActivity() {
         val detailCategory  = findViewById<TextView>(R.id.detailCategory)
         val detailTitle     = findViewById<TextView>(R.id.detailTitle)
         val detailPrice     = findViewById<TextView>(R.id.detailPrice)
-        val detailShipId    = findViewById<TextView>(R.id.detailShipmentId)
+        // Removed detailShipmentId
+        val detailSenderName = findViewById<TextView>(R.id.detailSenderName)
+        val detailOrigin     = findViewById<TextView>(R.id.detailOrigin)
         val shipThisBtn     = findViewById<Button>(R.id.shipThisBtn)
 
         val productId    = intent.getIntExtra("productId", -1)
@@ -39,7 +41,8 @@ class ShipmentDetailsActivity : AppCompatActivity() {
             detailCategory.text = productCat?.replaceFirstChar { it.uppercase() } ?: "Product"
             detailTitle.text = productTitle
             detailPrice.text = "$${String.format("%.2f", productPrice)}"
-            detailShipId.text = "#${productId.toString().padStart(4, '0')}"
+            detailSenderName?.text = "Inventory Item" // Can be dynamically set if available
+            detailOrigin?.text = "Warehouse A" // Defaulting or get from intent
             detailText.text = productDesc ?: "No description available."
 
             if (!productImg.isNullOrEmpty()) {
@@ -53,6 +56,8 @@ class ShipmentDetailsActivity : AppCompatActivity() {
 
             shipThisBtn.setOnClickListener {
                 val intent = Intent(this, CreateShipmentActivity::class.java)
+                intent.putExtra("productImg", productImg)
+                intent.putExtra("productTitle", productTitle)
                 startActivity(intent)
             }
 
@@ -61,7 +66,8 @@ class ShipmentDetailsActivity : AppCompatActivity() {
             detailCategory.text = "ORDER"
             detailTitle.text = "Cart #$cartId"
             detailPrice.text = "$itemCount items"
-            detailShipId.text = "#${cartId.toString().padStart(4, '0')}"
+            detailSenderName?.text = "User $userId"
+            detailOrigin?.text = "Distribution Center"
             detailText.text = "User ID: $userId\nItems: $itemCount\nStatus: In Transit\nOrigin: Distribution Center\nDestination: User $userId's Address\nETA: 2–5 business days"
 
             imagePlaceholder.visibility = View.VISIBLE
@@ -77,7 +83,8 @@ class ShipmentDetailsActivity : AppCompatActivity() {
             detailCategory.text = "SHIPMENT"
             detailTitle.text = "Tracking ID: $id"
             detailPrice.text = "In Transit"
-            detailShipId.text = id ?: "N/A"
+            detailSenderName?.text = "N/A"
+            detailOrigin?.text = "Bangalore"
             detailText.text = "Status: In Transit\nFrom: Bangalore\nTo: Chennai\nPayment: Paid"
             imagePlaceholder.visibility = View.VISIBLE
             image.visibility = View.GONE

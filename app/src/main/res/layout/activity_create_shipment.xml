@@ -112,43 +112,50 @@
             android:paddingVertical="14dp"
             android:layout_marginBottom="16dp" />
 
-        <!-- Sender Details -->
-        <TextView
+        <LinearLayout
+            android:id="@+id/senderSection"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="SENDER DETAILS"
-            android:textSize="12sp"
-            android:textStyle="bold"
-            android:letterSpacing="0.12"
-            android:textColor="@color/dark_text_primary"
-            android:layout_marginBottom="12dp" />
+            android:orientation="vertical">
 
-        <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:text="SENDER NAME" android:textSize="11sp" android:letterSpacing="0.1" android:textColor="@color/dark_text_secondary" android:layout_marginBottom="6dp" />
-        <EditText
-            android:id="@+id/sender"
-            android:layout_width="match_parent"
-            android:layout_height="56dp"
-            android:hint="e.g. John Doe"
-            android:background="@drawable/bg_input_field"
-            android:textColor="@color/dark_text_primary"
-            android:textColorHint="@color/dark_text_secondary"
-            android:paddingHorizontal="14dp"
-            android:paddingVertical="14dp"
-            android:layout_marginBottom="14dp" />
+            <!-- Sender Details -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="SENDER DETAILS"
+                android:textSize="12sp"
+                android:textStyle="bold"
+                android:letterSpacing="0.12"
+                android:textColor="@color/dark_text_primary"
+                android:layout_marginBottom="12dp" />
 
-        <!-- Pickup -->
-        <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:text="PICKUP ADDRESS" android:textSize="11sp" android:letterSpacing="0.1" android:textColor="@color/dark_text_secondary" android:layout_marginBottom="6dp" />
-        <EditText
-            android:id="@+id/pickup"
-            android:layout_width="match_parent"
-            android:layout_height="56dp"
-            android:hint="123 Main Street, City"
-            android:background="@drawable/bg_input_field"
-            android:textColor="@color/dark_text_primary"
-            android:textColorHint="@color/dark_text_secondary"
-            android:paddingHorizontal="14dp"
-            android:paddingVertical="14dp"
-            android:layout_marginBottom="16dp" />
+            <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:text="SENDER NAME" android:textSize="11sp" android:letterSpacing="0.1" android:textColor="@color/dark_text_secondary" android:layout_marginBottom="6dp" />
+            <EditText
+                android:id="@+id/sender"
+                android:layout_width="match_parent"
+                android:layout_height="56dp"
+                android:hint="e.g. John Doe"
+                android:background="@drawable/bg_input_field"
+                android:textColor="@color/dark_text_primary"
+                android:textColorHint="@color/dark_text_secondary"
+                android:paddingHorizontal="14dp"
+                android:paddingVertical="14dp"
+                android:layout_marginBottom="14dp" />
+
+            <!-- Pickup -->
+            <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:text="PICKUP ADDRESS" android:textSize="11sp" android:letterSpacing="0.1" android:textColor="@color/dark_text_secondary" android:layout_marginBottom="6dp" />
+            <EditText
+                android:id="@+id/pickup"
+                android:layout_width="match_parent"
+                android:layout_height="56dp"
+                android:hint="123 Main Street, City"
+                android:background="@drawable/bg_input_field"
+                android:textColor="@color/dark_text_primary"
+                android:textColorHint="@color/dark_text_secondary"
+                android:paddingHorizontal="14dp"
+                android:paddingVertical="14dp"
+                android:layout_marginBottom="16dp" />
+        </LinearLayout>
 
         <!-- Receiver Details -->
         <TextView

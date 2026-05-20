@@ -30,6 +30,7 @@ class LoginActivity : AppCompatActivity() {
     private lateinit var password: EditText
     private lateinit var loginBtn: Button
     private lateinit var googleLoginBtn: Button
+    private lateinit var deliveryPartnerLoginBtn: Button
     private lateinit var signupText: TextView
     private lateinit var progressBar: ProgressBar
 
@@ -82,6 +83,7 @@ class LoginActivity : AppCompatActivity() {
         password = findViewById(R.id.password)
         loginBtn = findViewById(R.id.loginBtn)
         googleLoginBtn = findViewById(R.id.googleLoginBtn)
+        deliveryPartnerLoginBtn = findViewById(R.id.deliveryPartnerLoginBtn)
         signupText = findViewById(R.id.signupText)
         progressBar = findViewById(R.id.loginProgress)
 
@@ -118,7 +120,11 @@ class LoginActivity : AppCompatActivity() {
                     setLoading(false)
                     if (task.isSuccessful) {
                         Toast.makeText(this@LoginActivity, "Login successful!", Toast.LENGTH_SHORT).show()
-                        startActivity(Intent(this@LoginActivity, DashboardActivity::class.java))
+                        if (emailText == "deliverypartner@gmail.com") {
+                            startActivity(Intent(this@LoginActivity, PartnerShipmentsActivity::class.java))
+                        } else {
+                            startActivity(Intent(this@LoginActivity, DashboardActivity::class.java))
+                        }
                         finish()
                     } else {
                         val errorMessage = task.exception?.localizedMessage ?: "Invalid credentials"
@@ -143,6 +149,36 @@ class LoginActivity : AppCompatActivity() {
             }
         }
 
+        deliveryPartnerLoginBtn.setOnClickListener {
+            setLoading(true)
+            val email = "deliverypartner@gmail.com"
+            val pass = "deliverypartner123"
+            
+            auth.signInWithEmailAndPassword(email, pass)
+                .addOnCompleteListener(this) { task ->
+                    if (task.isSuccessful) {
+                        setLoading(false)
+                        Toast.makeText(this@LoginActivity, "Delivery Partner Login successful!", Toast.LENGTH_SHORT).show()
+                        startActivity(Intent(this@LoginActivity, DeliveryDashboardActivity::class.java))
+                        finish()
+                    } else {
+                        // If sign in fails, try to create the account (first time login)
+                        auth.createUserWithEmailAndPassword(email, pass)
+                            .addOnCompleteListener(this) { createTask ->
+                                setLoading(false)
+                                if (createTask.isSuccessful) {
+                                    Toast.makeText(this@LoginActivity, "Delivery Partner Account created & logged in!", Toast.LENGTH_SHORT).show()
+                                    startActivity(Intent(this@LoginActivity, DeliveryDashboardActivity::class.java))
+                                    finish()
+                                } else {
+                                    val errorMessage = task.exception?.localizedMessage ?: "Invalid credentials"
+                                    Toast.makeText(this@LoginActivity, errorMessage, Toast.LENGTH_LONG).show()
+                                }
+                            }
+                    }
+                }
+        }
+
         signupText.setOnClickListener {
             startActivity(Intent(this, SignupActivity::class.java))
         }
@@ -163,7 +199,11 @@ class LoginActivity : AppCompatActivity() {
                 setLoading(false)
                 if (task.isSuccessful) {
                     Toast.makeText(this, "Google sign-in successful!", Toast.LENGTH_SHORT).show()
-                    startActivity(Intent(this, DashboardActivity::class.java))
+                    if (auth.currentUser?.email == "deliverypartner@gmail.com") {
+                        startActivity(Intent(this, PartnerShipmentsActivity::class.java))
+                    } else {
+                        startActivity(Intent(this, DashboardActivity::class.java))
+                    }
                     finish()
                 } else {
                     val errorMessage = when (val ex = task.exception) {
@@ -183,6 +223,7 @@ class LoginActivity : AppCompatActivity() {
         progressBar.visibility = if (isLoading) View.VISIBLE else View.GONE
         loginBtn.isEnabled = !isLoading
         googleLoginBtn.isEnabled = !isLoading
+        deliveryPartnerLoginBtn.isEnabled = !isLoading
         signupText.isEnabled = !isLoading
     }
 
