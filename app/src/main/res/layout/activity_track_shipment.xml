@@ -18,7 +18,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Enter a product ID to track its status"
+        android:text="Enter your shipment tracking ID to view status"
         android:textSize="14sp"
         android:textColor="@color/dark_text_secondary"
         android:layout_marginBottom="20dp" />
@@ -69,8 +69,8 @@
                 android:layout_gravity="center_vertical"
                 android:gravity="center_vertical"
                 android:singleLine="true"
-                android:hint="Product ID (1–20)"
-                android:inputType="number"
+                android:hint="Tracking ID (e.g. TRK1234)"
+                android:inputType="textCapCharacters"
                 android:background="@null"
                 android:paddingVertical="12dp"
                 android:textColor="#FFFFFF"

@@ -11,8 +11,8 @@ import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.madecie3.ai.*
-import com.example.madecie3.data.AppDatabase
-import com.example.madecie3.data.ShipmentEntity
+import com.example.madecie3.data.FirestoreShipment
+import com.example.madecie3.data.FirestoreShipmentRepository
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.Dispatchers
 
@@ -24,11 +24,14 @@ class AiAssistantActivity : AppCompatActivity() {
     private lateinit var statusText: TextView
     private var thinkingJob: kotlinx.coroutines.Job? = null
     private val thinkingTerms = listOf("Skiddadling", "Thinking", "Spooking", "Shenanging")
+    private lateinit var currentUserId: String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         ThemeUtils.applyTheme(this)
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_ai_assistant)
+        val user = AuthGuard.requireAuthenticated(this) ?: return
+        currentUserId = user.uid
 
         recyclerView = findViewById(R.id.chatRecyclerView)
         statusText   = findViewById(R.id.chatStatus)
@@ -137,8 +140,7 @@ class AiAssistantActivity : AppCompatActivity() {
             val cost = (weight * 50).toInt()
 
             lifecycleScope.launch(Dispatchers.IO) {
-                val db = AppDatabase.getDatabase(this@AiAssistantActivity)
-                val shipment = ShipmentEntity(
+                val shipment = FirestoreShipment(
                     sender = sender,
                     receiver = receiver,
                     pickupAddress = pickup,
@@ -146,9 +148,19 @@ class AiAssistantActivity : AppCompatActivity() {
                     weight = weight,
                     cost = cost,
                     trackingId = trackingId,
-                    paymentMethod = "AI Managed"
+                    paymentMethod = "AI Managed",
+                    status = "Created"
                 )
-                db.shipmentDao().insertShipment(shipment)
+                val result = FirestoreShipmentRepository().createShipment(currentUserId, shipment)
+                if (result.isFailure) {
+                    launch(Dispatchers.Main) {
+                        Toast.makeText(
+                            this@AiAssistantActivity,
+                            "AI shipment save failed: ${result.exceptionOrNull()?.localizedMessage}",
+                            Toast.LENGTH_LONG
+                        ).show()
+                    }
+                }
             }
         }
     }

@@ -1,41 +1,41 @@
 {
   "project_info": {
-    "project_number": "275779513570",
-    "project_id": "classproject-d7a1c",
-    "storage_bucket": "classproject-d7a1c.firebasestorage.app"
+    "project_number": "850867576317",
+    "project_id": "logisticman-67b56",
+    "storage_bucket": "logisticman-67b56.firebasestorage.app"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:275779513570:android:0732c9b7665e39a65d42bb",
+        "mobilesdk_app_id": "1:850867576317:android:17d1b01e04e829cfaecd94",
         "android_client_info": {
           "package_name": "com.example.madecie3"
         }
       },
       "oauth_client": [
         {
-          "client_id": "275779513570-c9508n6b9icgojiqdavgkcpam0jkohbq.apps.googleusercontent.com",
+          "client_id": "850867576317-9vjvfoh938a6p0d70v716gidj6o6lsje.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.example.madecie3",
-            "certificate_hash": "7a3e06feb8b46630fc275edaa47b1a1553adad8a"
+            "certificate_hash": "c39ee294fd6006e5706948ca10de8b65d8ffa01d"
           }
         },
         {
-          "client_id": "275779513570-8fj9n50diqcpdbnvoarvt40ihmqi8jb0.apps.googleusercontent.com",
+          "client_id": "850867576317-rie28bkgiehdev6dq53on269pk45bd7e.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyB-8Hjv_Ce_H_eyWCeUy3-fsNRwJ_qvdXo"
+          "current_key": "AIzaSyAexBDNfDXet9r3vV0mtPAOV8B6hwvxiyE"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "275779513570-8fj9n50diqcpdbnvoarvt40ihmqi8jb0.apps.googleusercontent.com",
+              "client_id": "850867576317-rie28bkgiehdev6dq53on269pk45bd7e.apps.googleusercontent.com",
               "client_type": 3
             }
           ]
