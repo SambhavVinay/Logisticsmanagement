@@ -125,6 +125,17 @@
                     android:textColor="#E53935"
                     android:paddingHorizontal="16dp"
                     android:paddingVertical="14dp"
+                    android:layout_marginBottom="12dp"
+                    android:background="@drawable/bg_auth_btn_outline" />
+                
+                <Button
+                    android:id="@+id/deliveryPartnerLoginBtn"
+                    android:layout_width="match_parent"
+                    android:layout_height="56dp"
+                    android:text="I am a Delivery Partner"
+                    android:textColor="#E53935"
+                    android:paddingHorizontal="16dp"
+                    android:paddingVertical="14dp"
                     android:background="@drawable/bg_auth_btn_outline" />
             </LinearLayout>
 

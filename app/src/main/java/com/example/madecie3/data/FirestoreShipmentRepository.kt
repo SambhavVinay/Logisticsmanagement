@@ -83,4 +83,55 @@ class FirestoreShipmentRepository(
                     }
                 }
         }
+
+    suspend fun getAllShipments(): Result<List<FirestoreShipment>> =
+        suspendCancellableCoroutine { continuation ->
+            firestore.collectionGroup("shipments")
+                .orderBy("createdAt", Query.Direction.DESCENDING)
+                .get()
+                .addOnSuccessListener { snapshot ->
+                    val shipments = snapshot.documents.mapNotNull { it.toObject<FirestoreShipment>() }
+                    if (continuation.isActive) {
+                        continuation.resume(Result.success(shipments))
+                    }
+                }
+                .addOnFailureListener { error ->
+                    if (continuation.isActive) {
+                        continuation.resume(Result.failure(error))
+                    }
+                }
+        }
+
+    suspend fun updateShipmentStatus(trackingId: String, newStatus: String): Result<Unit> =
+        suspendCancellableCoroutine { continuation ->
+            firestore.collectionGroup("shipments")
+                .whereEqualTo("trackingId", trackingId)
+                .limit(1)
+                .get()
+                .addOnSuccessListener { snapshot ->
+                    val doc = snapshot.documents.firstOrNull()
+                    if (doc != null) {
+                        doc.reference.update("status", newStatus)
+                            .addOnSuccessListener {
+                                if (continuation.isActive) {
+                                    continuation.resume(Result.success(Unit))
+                                }
+                            }
+                            .addOnFailureListener { error ->
+                                if (continuation.isActive) {
+                                    continuation.resume(Result.failure(error))
+                                }
+                            }
+                    } else {
+                        if (continuation.isActive) {
+                            continuation.resume(Result.failure(Exception("Shipment not found")))
+                        }
+                    }
+                }
+                .addOnFailureListener { error ->
+                    if (continuation.isActive) {
+                        continuation.resume(Result.failure(error))
+                    }
+                }
+        }
 }

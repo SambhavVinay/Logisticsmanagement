@@ -21,8 +21,13 @@ class SplashActivity : AppCompatActivity() {
         prefs.edit().putInt("app_launch_count", launchCount).apply()
 
         Handler(Looper.getMainLooper()).postDelayed({
-            val nextScreen = if (FirebaseAuth.getInstance().currentUser != null) {
-                DashboardActivity::class.java
+            val user = FirebaseAuth.getInstance().currentUser
+            val nextScreen = if (user != null) {
+                if (user.email == "deliverypartner@gmail.com") {
+                    DeliveryDashboardActivity::class.java
+                } else {
+                    DashboardActivity::class.java
+                }
             } else {
                 LoginActivity::class.java
             }

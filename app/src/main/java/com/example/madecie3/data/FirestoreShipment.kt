@@ -11,6 +11,6 @@ data class FirestoreShipment(
     val weight: Double = 0.0,
     val cost: Int = 0,
     val paymentMethod: String = "",
-    val status: String = "Created",
+    val status: String = "Not Delivered",
     val createdAt: Timestamp? = null
 )

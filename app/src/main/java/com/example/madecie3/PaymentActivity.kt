@@ -74,7 +74,7 @@ class PaymentActivity : AppCompatActivity() {
                             cost = amount,
                             trackingId = transactionId,
                             paymentMethod = selectedMethod,
-                            status = "Created"
+                            status = "Not Delivered"
                         )
 
                         val saveResult = withContext(Dispatchers.IO) {

@@ -42,6 +42,13 @@ class TrackShipmentActivity : AppCompatActivity() {
             resultCard.visibility = View.GONE
             statusText.text = ""
 
+            val trackIdResult = findViewById<TextView>(R.id.trackIdResult)
+            val trackFrom = findViewById<TextView>(R.id.trackFrom)
+            val trackTo = findViewById<TextView>(R.id.trackTo)
+            val trackWeight = findViewById<TextView>(R.id.trackWeight)
+            val trackDate = findViewById<TextView>(R.id.trackDate)
+            val trackStatus = findViewById<TextView>(R.id.trackStatus)
+
             lifecycleScope.launch {
                 try {
                     val result = withContext(Dispatchers.IO) {
@@ -52,6 +59,7 @@ class TrackShipmentActivity : AppCompatActivity() {
                     }
                     val shipment = result.getOrElse { error ->
                         statusText.text = "Unable to fetch shipment: ${error.localizedMessage}"
+                        statusText.visibility = View.VISIBLE
                         resultCard.visibility = View.VISIBLE
                         return@launch
                     }
@@ -62,25 +70,28 @@ class TrackShipmentActivity : AppCompatActivity() {
 
                         val createdOn = shipment.createdAt?.toDate()?.toString() ?: "Pending sync timestamp"
 
-                        statusText.text = """
-                            Shipment ID: ${shipment.trackingId}
-                            Sender: ${shipment.sender}
-                            Receiver: ${shipment.receiver}
-                            Weight: ${shipment.weight} KG
-                            Payment: ${shipment.paymentMethod}
-                            Amount: ₹${shipment.cost}
-                            Status: ${shipment.status}
-                            Pickup: ${shipment.pickupAddress}
-                            Delivery: ${shipment.deliveryAddress}
-                            Created: $createdOn
-                        """.trimIndent()
+                        trackIdResult.text = shipment.trackingId
+                        trackFrom.text = shipment.sender
+                        trackTo.text = shipment.receiver
+                        trackWeight.text = "${shipment.weight} KG"
+                        trackDate.text = createdOn
+                        trackStatus.text = shipment.status
+                        
+                        if (shipment.status == "Delivered") {
+                            trackStatus.setTextColor(android.graphics.Color.parseColor("#10B981"))
+                        } else {
+                            trackStatus.setTextColor(android.graphics.Color.parseColor("#E53935"))
+                        }
+
                         resultCard.visibility = View.VISIBLE
                     } else {
                         statusText.text = "No shipment found for tracking ID $trackingId."
+                        statusText.visibility = View.VISIBLE
                         resultCard.visibility = View.VISIBLE
                     }
                 } catch (e: Exception) {
                     statusText.text = "Network error: ${e.message}"
+                    statusText.visibility = View.VISIBLE
                 } finally {
                     progressBar.visibility = View.GONE
                 }
